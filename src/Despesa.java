@@ -1,4 +1,3 @@
-package Despesa;
 
 public class Despesa {
 
