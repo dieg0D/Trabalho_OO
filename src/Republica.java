@@ -2,10 +2,17 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
 public class Republica {
-    static ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-    static ArrayList<Despesas> despesas = new ArrayList<Despesas>();
-    static ArrayList<Categoria> categorias = new  ArrayList<Categoria>();
-    static ArrayList<SubCategoria> subCategorias = new ArrayList<SubCategoria>();
+    private ArrayList<Aluno> alunos;
+    private ArrayList<Despesas> despesas;
+    private ArrayList<Categoria> categorias;
+    private ArrayList<SubCategoria> subCategoria;
+
+    public Republica(){
+        this.alunos = new ArrayList<Aluno>();
+        this.despesas = new ArrayList<Despesas>();
+        this.categorias = new  ArrayList<Categoria>();
+        this.subCategorias = new ArrayList<SubCategoria>();
+    }
 
     public void cadastrarAluno() {
         String nome = JOptionPane.showInputDialog("Informe o nome do Aluno: ");
