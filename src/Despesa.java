@@ -7,7 +7,7 @@ public class Despesa {
     private Categoria categoria;
 
     // Método Construtor
-    public Despesa(Double valor, String descricao, Categoria categoria) { // Método Construtor alternativo
+    public Despesa(Double valor, String descricao, Categoria categoria) { 
         this.valor = valor;
         this.descricao = descricao;
         this.categoria = categoria;
