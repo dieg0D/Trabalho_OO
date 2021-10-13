@@ -8,25 +8,25 @@ public class Despesa {
     private Categoria categoria;
 
     // Método Construtor
-    private Despesa(Double valor, String descricao, Categoria categoria) { // Método Construtor alternativo
+    public Despesa(Double valor, String descricao, Categoria categoria) { // Método Construtor alternativo
         this.valor = valor;
         this.descricao = descricao;
         this.categoria = categoria;
     }
 
     // Getters
-    private Double getValor(){ return valor; }
+    public Double getValor(){ return valor; }
 
-    private String getDescricao(){ return descricao; }
+    public String getDescricao(){ return descricao; }
 
-    private Categoria getCategoria() { return categoria; }
+    public Categoria getCategoria() { return categoria; }
 
     // Setters
-    private void setValor(Double valor) { this.valor = valor; }
+    public void setValor(Double valor) { this.valor = valor; }
 
-    private void setDescricao(String descricao) { this.descricao = descricao; }
+    public void setDescricao(String descricao) { this.descricao = descricao; }
 
-    private void setCategoria(String categoria) { this.categoria = categoria; }
+    public void setCategoria(String categoria) { this.categoria = categoria; }
 
 }
 
