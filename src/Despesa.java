@@ -2,7 +2,7 @@ package Despesa;
 
 public class Despesa {
 
-    // Atributos da Classe Aluno
+    // Atributos da Classe Despesa
     private Double valor;
     private String descricao;
     private Categoria categoria;
