@@ -1,4 +1,3 @@
-
 public class Despesa {
 
     // Atributos da Classe Despesa
@@ -25,7 +24,7 @@ public class Despesa {
 
     public void setDescricao(String descricao) { this.descricao = descricao; }
 
-    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 
 }
 

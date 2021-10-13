@@ -3,13 +3,13 @@ import java.util.ArrayList;
 
 public class Republica {
     private ArrayList<Aluno> alunos;
-    private ArrayList<Despesas> despesas;
+    private ArrayList<Despesa> despesas;
     private ArrayList<Categoria> categorias;
-    private ArrayList<SubCategoria> subCategoria;
+    private ArrayList<SubCategoria> subCategorias;
 
     public Republica(){
         this.alunos = new ArrayList<Aluno>();
-        this.despesas = new ArrayList<Despesas>();
+        this.despesas = new ArrayList<Despesa>();
         this.categorias = new  ArrayList<Categoria>();
         this.subCategorias = new ArrayList<SubCategoria>();
     }
@@ -20,11 +20,7 @@ public class Republica {
         String strRendimento = JOptionPane.showInputDialog("Informe o rendimento do Aluno: R$ ");
         Double rendimento = Double.parseDouble(strRendimento);
 
-        Aluno novoAluno = new Aluno();
-
-        novoAluno.setNome(nome);
-        novoAluno.setEmail(email);
-        novoAluno.setRendimento(rendimento);
+        Aluno novoAluno = new Aluno(nome,email,rendimento);
 
         alunos.add(novoAluno);
         return;
@@ -51,10 +47,12 @@ public class Republica {
     }
 
     public void calcularDespesasIgualitarias() {
+        JOptionPane.showMessageDialog(null, "Resultado: ");
         return;
     }
 
     public void calcularDespesasProporcionais() {
+        JOptionPane.showMessageDialog(null, "Resultado: ");
         return;
     }
 }
