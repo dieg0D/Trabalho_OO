@@ -1,6 +1,5 @@
 public class Aluno {
-
-    // Atributos da Classe Despesa
+    
     private String nome;
     private String email;
     private Double rendimento;
