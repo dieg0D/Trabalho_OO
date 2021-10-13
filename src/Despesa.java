@@ -1,5 +1,4 @@
 package Despesa;
-import javax.swing.JOptionPane;
 
 public class Despesa {
 
