@@ -14,17 +14,14 @@ public class Despesa {
         this.categoria = categoria;
     }
 
-    private Double getValor(){
-        return valor;
-    }
+    // Getters
+    private Double getValor(){ return valor; }
 
-    private String getDescricao(){
-        return descricao;
-    }
+    private String getDescricao(){ return descricao; }
 
     private Categoria getCategoria() { return categoria; }
 
-
+    // Setters
     private void setValor(Double valor) { this.valor = valor; }
 
     private void setDescricao(String descricao) { this.descricao = descricao; }
