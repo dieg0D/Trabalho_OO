@@ -1,0 +1,36 @@
+Pontos positivos: 
+
++ Classes de exceção apresentadas, embora não tenha sido mostrada de quem elas
+herdam.
+
+
+
+
+
+
+Pontos negativos: 
+
+- Uso de composição como relacioamento entre classes. Composição é um outro tipo
+  de relação que não cabe no contexto desse trabalho, quando o ideal seria uma
+  relação direcional simples (-10%)
+- Por que as relações entre Republica --> Categoria e Republica -->
+  Subcategoria? (-10%)
+
+
+Dúvidas: 
+
+
+
+
+
+Comentários: 
+
+O trabalho está bem apresentado e elaborado. Sugiro seja utilizada a herança
+para o calculo das divisões das despesas conforme as regras igualitaria e
+proporcional. Continuem trabalhando na elaboração do TP!
+
+
+
+
+Nota: 
+80/100 pontos.
