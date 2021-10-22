@@ -1,0 +1,5 @@
+Léo Moraes;leo@email.com;500.0
+Diego Barbosa;diego@email.com;750.0
+João Victor;joao@email.com;750.0
+Mari Mendanha;mari@email.com;750.55
+Fyllipe;fil@email.com;1050.85

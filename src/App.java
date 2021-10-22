@@ -17,8 +17,16 @@ public class App {
         + "6 - Calcular despesas de forma proporcional\n"
         + "0 - Sair do programa"
       );
-      
-      opcao = Integer.parseInt(strOpcao);
+
+      try {
+        opcao = Integer.parseInt(strOpcao);
+      } catch (NumberFormatException e) {
+        opcao = 0;
+      }
+
+      Double a = 5543D;
+      System.out.println(a);
+  opcao= 0;
 
       switch (opcao) {
         case 1:
