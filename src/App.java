@@ -6,7 +6,6 @@ public class App {
 
     int opcao;
     do {
-      
       String strOpcao = JOptionPane.showInputDialog(
         "Escolha uma opção: \n"
         + "1 - Cadastrar Aluno\n"
@@ -23,10 +22,6 @@ public class App {
       } catch (NumberFormatException e) {
         opcao = 0;
       }
-
-      Double a = 5543D;
-      System.out.println(a);
-  opcao= 0;
 
       switch (opcao) {
         case 1:

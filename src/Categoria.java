@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Categoria {
+public class Categoria extends CategoriaBase {
   private ArrayList<SubCategoria> subcategorias;
 
   public void setSubcategorias(ArrayList<SubCategoria> subcategorias) {

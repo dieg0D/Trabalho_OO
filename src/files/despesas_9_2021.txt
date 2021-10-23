@@ -1,0 +1,4 @@
+Energia setembro;CEB,Energia;50.0
+Condomínio setembro;Residência,Condomínio;387.0
+Comida setembro;Alimentação,;945.75
+Água setembro;CAESB,Água;551.32

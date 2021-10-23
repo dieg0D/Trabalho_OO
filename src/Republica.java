@@ -1,4 +1,5 @@
 import javax.swing.JOptionPane;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Republica {
@@ -7,10 +8,10 @@ public class Republica {
     private ArrayList<Categoria> categorias;
     private ArrayList<SubCategoria> subCategorias;
 
-    public Republica(){
+    public Republica() {
         this.alunos = new ArrayList<Aluno>();
         this.despesas = new ArrayList<Despesa>();
-        this.categorias = new  ArrayList<Categoria>();
+        this.categorias = new ArrayList<Categoria>();
         this.subCategorias = new ArrayList<SubCategoria>();
     }
 
@@ -20,7 +21,7 @@ public class Republica {
         String strRendimento = JOptionPane.showInputDialog("Informe o rendimento do Aluno: R$ ");
         Double rendimento = Double.parseDouble(strRendimento);
 
-        Aluno novoAluno = new Aluno(nome,email,rendimento);
+        Aluno novoAluno = new Aluno(nome, email, rendimento);
 
         alunos.add(novoAluno);
         return;
@@ -47,8 +48,19 @@ public class Republica {
     }
 
     public void calcularDespesasIgualitarias() {
-        JOptionPane.showMessageDialog(null, "Resultado: ");
-        return;
+        try {
+            String mesStr = JOptionPane.showInputDialog("Informe o mes da despesa(1-12): ");
+            Integer mes = Integer.parseInt(mesStr);
+            String anoStr = JOptionPane.showInputDialog("Informe o ano da despesa: ");
+            Integer ano = Integer.parseInt(anoStr);
+            CalculoIgualitario calculoIgualitario = new CalculoIgualitario();
+            calculoIgualitario.calcular(mes, ano);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "O ano/mes inserido não é válido");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível achar uma despesa no intervalo de ano/mes dado");
+        }
+
     }
 
     public void calcularDespesasProporcionais() {
