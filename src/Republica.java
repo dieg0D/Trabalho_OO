@@ -1,4 +1,4 @@
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ public class Republica {
     private ArrayList<SubCategoria> subCategorias;
 
     public Republica() {
-        this.alunos = new ArrayList<Aluno>();
+        this.alunos = new ArrayList<>();
         this.despesas = new ArrayList<Despesa>();
         this.categorias = new ArrayList<Categoria>();
         this.subCategorias = new ArrayList<SubCategoria>();
@@ -24,7 +24,6 @@ public class Republica {
         Aluno novoAluno = new Aluno(nome, email, rendimento);
 
         alunos.add(novoAluno);
-        return;
     }
 
     public void cadastrarDespesas() {
@@ -33,18 +32,15 @@ public class Republica {
         String descricao = JOptionPane.showInputDialog("Informe a descrição da Despesa: ");
         String categoria = JOptionPane.showInputDialog("Informe a categoria: ");
 
-        return;
     }
 
     public void cadastrarCategoria() {
         String descricao = JOptionPane.showInputDialog("Informe a descrição da Categoria: ");
-        return;
     }
 
     public void cadastrarSubCategoria() {
         String descricao = JOptionPane.showInputDialog("Informe a descrição da SubCategoria: ");
 
-        return;
     }
 
     public void calcularDespesasIgualitarias() {
@@ -65,6 +61,5 @@ public class Republica {
 
     public void calcularDespesasProporcionais() {
         JOptionPane.showMessageDialog(null, "Resultado: ");
-        return;
     }
 }

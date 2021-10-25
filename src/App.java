@@ -1,20 +1,21 @@
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.io.IOException;
 
 public class App {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     final Republica republica = new Republica();
 
     int opcao;
     do {
       String strOpcao = JOptionPane.showInputDialog(
-        "Escolha uma opção: \n"
-        + "1 - Cadastrar Aluno\n"
-        + "2 - Cadastrar Despesa\n"
-        + "3 - Cadastrar Categoria\n"
-        + "4 - Cadastrar SubCategoria\n"
-        + "5 - Calcular despesas de forma igualitária\n"
-        + "6 - Calcular despesas de forma proporcional\n"
-        + "0 - Sair do programa"
+              "Escolha uma opção: \n"
+                      + "1 - Cadastrar Aluno\n"
+                      + "2 - Cadastrar Despesa\n"
+                      + "3 - Cadastrar Categoria\n"
+                      + "4 - Cadastrar SubCategoria\n"
+                      + "5 - Calcular despesas de forma igualitária\n"
+                      + "6 - Calcular despesas de forma proporcional\n"
+                      + "0 - Sair do programa"
       );
 
       try {
