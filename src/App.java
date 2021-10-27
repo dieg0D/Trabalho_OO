@@ -13,8 +13,10 @@ public class App {
                       + "2 - Cadastrar Despesa\n"
                       + "3 - Cadastrar Categoria\n"
                       + "4 - Cadastrar SubCategoria\n"
-                      + "5 - Calcular despesas de forma igualitária\n"
-                      + "6 - Calcular despesas de forma proporcional\n"
+                      + "5 - Editar Aluno\n"
+                      + "6 - Remover Aluno\n"
+                      + "7 - Calcular despesas de forma igualitária\n"
+                      + "8 - Calcular despesas de forma proporcional\n"
                       + "0 - Sair do programa"
       );
 
@@ -42,10 +44,18 @@ public class App {
           break;
 
         case 5:
-          republica.calcularDespesasIgualitarias();
+          republica.editarAluno();
           break;
 
         case 6:
+          republica.removerAluno();
+          break;
+
+        case 7:
+          republica.calcularDespesasIgualitarias();
+          break;
+
+        case 8:
           republica.calcularDespesasProporcionais();
           break;
 

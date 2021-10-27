@@ -8,22 +8,40 @@ public class Republica {
     private ArrayList<Categoria> categorias;
     private ArrayList<SubCategoria> subCategorias;
 
-    public Republica() {
-        this.alunos = new ArrayList<>();
+    public Republica() throws IOException {
+        this.alunos = ArquivoHelper.lerAlunos();
         this.despesas = new ArrayList<Despesa>();
         this.categorias = new ArrayList<Categoria>();
         this.subCategorias = new ArrayList<SubCategoria>();
     }
 
-    public void cadastrarAluno() {
+    public void cadastrarAluno() throws IOException {
         String nome = JOptionPane.showInputDialog("Informe o nome do Aluno: ");
         String email = JOptionPane.showInputDialog("Informe o e-mail do Aluno: ");
         String strRendimento = JOptionPane.showInputDialog("Informe o rendimento do Aluno: R$ ");
         Double rendimento = Double.parseDouble(strRendimento);
 
         Aluno novoAluno = new Aluno(nome, email, rendimento);
-
         alunos.add(novoAluno);
+
+        ArquivoHelper.salvarAlunos(alunos);
+    }
+
+    public void editarAluno() throws IOException {
+        String alunoEditar = JOptionPane.showInputDialog("Informe o nome do Aluno que gostaria de editar: ");
+
+        alunos = ArquivoHelper.procurarAluno(alunoEditar);
+
+        ArquivoHelper.salvarAlunos(alunos);
+    }
+
+    public void removerAluno() throws IOException {
+        String alunoRemover = JOptionPane.showInputDialog("Informe o nome do Aluno que gostaria de remover: ");
+
+        alunos = ArquivoHelper.removerAluno(alunoRemover);
+
+        ArquivoHelper.salvarAlunos(alunos);
+
     }
 
     public void cadastrarDespesas() {

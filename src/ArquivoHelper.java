@@ -1,8 +1,10 @@
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ArquivoHelper {
     private static final File alunosFile = new File("src/files/alunos.txt");
@@ -57,6 +59,53 @@ public class ArquivoHelper {
 
             Aluno aluno = new Aluno(nome, email, rendimento);
             alunos.add(aluno);
+        }
+
+        return alunos;
+    }
+
+    public static ArrayList<Aluno> procurarAluno(String _aluno) throws IOException {
+        ArrayList<Aluno> alunos = new ArrayList<>();
+        var linhasDoArquivo = lerLinhasDoArquivo(alunosFile);
+        for (var linha : linhasDoArquivo) {
+            var linhaSeparada = linha.split(";");
+
+            String nome;
+            String email;
+            Double rendimento;
+
+            if (Objects.equals(linhaSeparada[0], _aluno)) {
+                nome = JOptionPane.showInputDialog("Informe o novo nome do Aluno: ");
+                email = JOptionPane.showInputDialog("Informe o novo e-mail do Aluno: ");
+                String strRendimento = JOptionPane.showInputDialog("Informe o rendimento do Aluno: R$ ");
+                rendimento = Double.parseDouble(strRendimento);
+            } else {
+                nome = linhaSeparada[0];
+                email = linhaSeparada[1];
+                rendimento = Double.parseDouble(linhaSeparada[2]);
+            }
+
+            Aluno aluno = new Aluno(nome, email, rendimento);
+            alunos.add(aluno);
+        }
+
+        return alunos;
+    }
+
+    public static ArrayList<Aluno> removerAluno(String _aluno) throws IOException {
+        ArrayList<Aluno> alunos = new ArrayList<>();
+        var linhasDoArquivo = lerLinhasDoArquivo(alunosFile);
+        for (var linha : linhasDoArquivo) {
+            var linhaSeparada = linha.split(";");
+
+            if (!Objects.equals(linhaSeparada[0], _aluno)) {
+                String nome = linhaSeparada[0];
+                String email = linhaSeparada[1];
+                Double rendimento = Double.parseDouble(linhaSeparada[2]);
+                Aluno aluno = new Aluno(nome, email, rendimento);
+                alunos.add(aluno);
+            }
+
         }
 
         return alunos;
