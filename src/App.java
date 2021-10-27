@@ -12,11 +12,10 @@ public class App {
                       + "1 - Cadastrar Aluno\n"
                       + "2 - Cadastrar Despesa\n"
                       + "3 - Cadastrar Categoria\n"
-                      + "4 - Cadastrar SubCategoria\n"
-                      + "5 - Editar Aluno\n"
-                      + "6 - Remover Aluno\n"
-                      + "7 - Calcular despesas de forma igualitária\n"
-                      + "8 - Calcular despesas de forma proporcional\n"
+                      + "4 - Editar Aluno\n"
+                      + "5 - Remover Aluno\n"
+                      + "6 - Calcular despesas de forma igualitária\n"
+                      + "7 - Calcular despesas de forma proporcional\n"
                       + "0 - Sair do programa"
       );
 
@@ -40,22 +39,18 @@ public class App {
           break;
 
         case 4:
-          republica.cadastrarSubCategoria();
-          break;
-
-        case 5:
           republica.editarAluno();
           break;
 
-        case 6:
+        case 5:
           republica.removerAluno();
           break;
 
-        case 7:
+        case 6:
           republica.calcularDespesasIgualitarias();
           break;
 
-        case 8:
+        case 7:
           republica.calcularDespesasProporcionais();
           break;
 
