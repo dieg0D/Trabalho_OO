@@ -78,11 +78,12 @@ public class Republica {
 
         categorias.add(novaCategoria);
 
-        String comSubcategoria = JOptionPane.showInputDialog("Deseja atrelar subcategorias? (s/n)");
         String subcategoria = "";
-        if (comSubcategoria.equals("s") || comSubcategoria.equals("S")) {
-            subcategoria = JOptionPane.showInputDialog("Informe a subcategoria: ");
+        String comSubcategoria = "";
+        while (!comSubcategoria.equals("s") && !comSubcategoria.equals("S") && !comSubcategoria.equals("n") && !comSubcategoria.equals("N")) {
+            comSubcategoria = JOptionPane.showInputDialog("Deseja atrelar subcategorias? (s/n)");
         }
+        if( comSubcategoria.equals("s") || comSubcategoria.equals("S") ) { subcategoria = JOptionPane.showInputDialog("Informe a subcategoria: "); }
         novaCategoria.setSubcategorias(subcategoria);
 
     }
