@@ -9,39 +9,60 @@ public class Republica {
     private ArrayList<SubCategoria> subCategorias;
 
     public Republica() throws IOException {
-        this.alunos = ArquivoHelper.lerAlunos();
+        try {
+            this.alunos = ArquivoHelper.lerAlunos();
+        } catch (IOException e) {
+            this.alunos = new ArrayList<Aluno>();
+        }
         this.despesas = new ArrayList<Despesa>();
         this.categorias = new ArrayList<Categoria>();
         this.subCategorias = new ArrayList<SubCategoria>();
     }
 
     public void cadastrarAluno() throws IOException {
-        String nome = JOptionPane.showInputDialog("Informe o nome do Aluno: ");
-        String email = JOptionPane.showInputDialog("Informe o e-mail do Aluno: ");
-        String strRendimento = JOptionPane.showInputDialog("Informe o rendimento do Aluno: R$ ");
-        Double rendimento = Double.parseDouble(strRendimento);
+        String nome = Aluno.checarNomeEmBranco(JOptionPane.showInputDialog("Informe o nome do Aluno: "));
+        if (!ArquivoHelper.alunoExiste(nome)) {
+            String email = Aluno.checarEmailEmBranco(JOptionPane.showInputDialog("Informe o e-mail do Aluno: "));
 
-        Aluno novoAluno = new Aluno(nome, email, rendimento);
-        alunos.add(novoAluno);
+            String strRendimento = Aluno.rendimentoInvalido(
+                    JOptionPane.showInputDialog("Informe o rendimento do Aluno: R$ ")
+            );
+            double rendimento = Double.parseDouble(strRendimento);
 
-        ArquivoHelper.salvarAlunos(alunos);
+            Aluno novoAluno = new Aluno(nome, email, rendimento);
+            alunos.add(novoAluno);
+
+            ArquivoHelper.salvarAlunos(alunos);
+        } else {
+            JOptionPane.showMessageDialog(null, "Esse aluno já está cadastrado");
+        }
     }
 
-    public void editarAluno() throws IOException {
+    public void editarAluno() throws IOException, DadosPessoaisIncompletosException, RendimentoInvalidoException {
         String alunoEditar = JOptionPane.showInputDialog("Informe o nome do Aluno que gostaria de editar: ");
+        ArrayList<Aluno> alunos_copy = alunos;
 
-        alunos = ArquivoHelper.procurarAluno(alunoEditar);
-
-        ArquivoHelper.salvarAlunos(alunos);
+        if (ArquivoHelper.alunoExiste(alunoEditar)) {
+            alunos = ArquivoHelper.editarCadastroAluno(alunoEditar);
+            ArquivoHelper.salvarAlunos(alunos);
+            if (ArquivoHelper.alunoRepetido(alunoEditar)) {
+                JOptionPane.showMessageDialog(null, "Esse aluno já está cadastrado");
+                ArquivoHelper.salvarAlunos(alunos_copy);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Esse aluno não existe");
+        }
     }
 
     public void removerAluno() throws IOException {
         String alunoRemover = JOptionPane.showInputDialog("Informe o nome do Aluno que gostaria de remover: ");
 
-        alunos = ArquivoHelper.removerAluno(alunoRemover);
-
-        ArquivoHelper.salvarAlunos(alunos);
-
+        if (ArquivoHelper.alunoExiste(alunoRemover)) {
+            alunos = ArquivoHelper.removerAluno(alunoRemover);
+            ArquivoHelper.salvarAlunos(alunos);
+        } else {
+            JOptionPane.showMessageDialog(null, "Esse aluno não existe");
+        }
     }
 
     public void cadastrarDespesas() {

@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class App {
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, DadosPessoaisIncompletosException, RendimentoInvalidoException {
     final Republica republica = new Republica();
 
     int opcao;

@@ -64,7 +64,7 @@ public class ArquivoHelper {
         return alunos;
     }
 
-    public static ArrayList<Aluno> procurarAluno(String _aluno) throws IOException {
+    public static ArrayList<Aluno> editarCadastroAluno(String _aluno) throws IOException, DadosPessoaisIncompletosException, RendimentoInvalidoException {
         ArrayList<Aluno> alunos = new ArrayList<>();
         var linhasDoArquivo = lerLinhasDoArquivo(alunosFile);
         for (var linha : linhasDoArquivo) {
@@ -72,12 +72,16 @@ public class ArquivoHelper {
 
             String nome;
             String email;
-            Double rendimento;
+            double rendimento;
 
             if (Objects.equals(linhaSeparada[0], _aluno)) {
-                nome = JOptionPane.showInputDialog("Informe o novo nome do Aluno: ");
-                email = JOptionPane.showInputDialog("Informe o novo e-mail do Aluno: ");
-                String strRendimento = JOptionPane.showInputDialog("Informe o rendimento do Aluno: R$ ");
+                nome = Aluno.checarNomeEmBranco(JOptionPane.showInputDialog("Informe o nome do Aluno: "));
+
+                email = Aluno.checarEmailEmBranco(JOptionPane.showInputDialog("Informe o e-mail do Aluno: "));
+
+                String strRendimento = Aluno.rendimentoInvalido(
+                        JOptionPane.showInputDialog("Informe o rendimento do Aluno: R$ ")
+                );
                 rendimento = Double.parseDouble(strRendimento);
             } else {
                 nome = linhaSeparada[0];
@@ -90,6 +94,30 @@ public class ArquivoHelper {
         }
 
         return alunos;
+    }
+
+    public static boolean alunoExiste(String _aluno) throws IOException {
+        var linhasDoArquivo = lerLinhasDoArquivo(alunosFile);
+        for (var linha : linhasDoArquivo) {
+            var linhaSeparada = linha.split(";");
+
+            if (Objects.equals(linhaSeparada[0], _aluno)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean alunoRepetido(String _aluno) throws IOException {
+        var linhasDoArquivo = lerLinhasDoArquivo(alunosFile);
+        int count = 0;
+        for (var linha : linhasDoArquivo) {
+            var linhaSeparada = linha.split(";");
+
+            if (Objects.equals(linhaSeparada[0], _aluno)) count++;
+            if (count == 2) return true;
+        }
+        return false;
     }
 
     public static ArrayList<Aluno> removerAluno(String _aluno) throws IOException {
@@ -105,9 +133,7 @@ public class ArquivoHelper {
                 Aluno aluno = new Aluno(nome, email, rendimento);
                 alunos.add(aluno);
             }
-
         }
-
         return alunos;
     }
 
