@@ -6,7 +6,6 @@ public class Republica {
     private ArrayList<Aluno> alunos;
     private ArrayList<Despesa> despesas;
     private ArrayList<Categoria> categorias;
-    private ArrayList<SubCategoria> subCategorias;
 
     public Republica() throws IOException {
         try {
@@ -16,7 +15,6 @@ public class Republica {
         }
         this.despesas = new ArrayList<Despesa>();
         this.categorias = new ArrayList<Categoria>();
-        this.subCategorias = new ArrayList<SubCategoria>();
     }
 
     public void cadastrarAluno() throws IOException {
@@ -75,10 +73,17 @@ public class Republica {
 
     public void cadastrarCategoria() {
         String descricao = JOptionPane.showInputDialog("Informe a descrição da Categoria: ");
-    }
+        Categoria novaCategoria = new Categoria();
+        novaCategoria.setDescricao(descricao);
 
-    public void cadastrarSubCategoria() {
-        String descricao = JOptionPane.showInputDialog("Informe a descrição da SubCategoria: ");
+        categorias.add(novaCategoria);
+
+        String comSubcategoria = JOptionPane.showInputDialog("Deseja atrelar subcategorias? (s/n)");
+        String subcategoria = "";
+        if (comSubcategoria.equals("s") || comSubcategoria.equals("S")) {
+            subcategoria = JOptionPane.showInputDialog("Informe a subcategoria: ");
+        }
+        novaCategoria.setSubcategorias(subcategoria);
 
     }
 
