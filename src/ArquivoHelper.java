@@ -26,19 +26,19 @@ public class ArquivoHelper {
         for (String linha : linhasDoArquivo) {
             String[] linhaSeparada = linha.split(";");
             String[] categoriaESubcategoria = linhaSeparada[1].split(",");
-            ArrayList<SubCategoria> subcategorias = new ArrayList<>();
+            String subcategorias = new String();
 
             String descricaoCategoria = categoriaESubcategoria[0];
             String descricaoDespesa = linhaSeparada[0];
             Double valor = Double.parseDouble(linhaSeparada[2]);
             if (categoriaESubcategoria.length > 1) {
                 SubCategoria subCategoria = new SubCategoria();
-                subCategoria.setDescrição(categoriaESubcategoria[1]);
-                subcategorias.add(subCategoria);
+                subCategoria.setDescricao(categoriaESubcategoria[1]);
+                subcategorias = subCategoria.getDescricao();
             }
             Categoria categoria = new Categoria();
             categoria.setSubcategorias(subcategorias);
-            categoria.setDescrição(descricaoCategoria);
+            categoria.setDescricao(descricaoCategoria);
 
             Despesa despesa = new Despesa(valor, descricaoDespesa, categoria);
             despesas.add(despesa);
@@ -153,11 +153,11 @@ public class ArquivoHelper {
             String subCategoria = "";
             var subCategorias = despesa.getCategoria().getSubcategorias();
 
-            if (subCategorias.size() > 0) {
-                subCategoria = subCategorias.get(0).getDescrição();
-            }
+            //if (subCategorias != null) {
+            //    subCategoria = subCategorias.getDescricao();
+            //}
             linhasDoArquivo.append(String.format("%s;%s,%s;%.2f\n", despesa.getDescricao(),
-                    despesa.getCategoria().getDescrição(), subCategoria, despesa.getValor()));
+                    despesa.getCategoria().getDescricao(), subCategoria, despesa.getValor()));
         }
 
         File arquivoDeDespesas = getArquivosDeDespesasPath(mes, ano);
