@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
 public class Categoria extends CategoriaBase {
-  private ArrayList<SubCategoria> subcategorias;
+  private String subcategorias;
 
-  public void setSubcategorias(ArrayList<SubCategoria> subcategorias) {
+  public void setSubcategorias(String subcategorias) {
     this.subcategorias = subcategorias;
   }
 
-  public ArrayList<SubCategoria> getSubcategorias() {
+  public String getSubcategorias() {
     return subcategorias;
   }
 }
