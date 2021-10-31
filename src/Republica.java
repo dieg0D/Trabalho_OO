@@ -105,6 +105,18 @@ public class Republica {
     }
 
     public void calcularDespesasProporcionais() {
-        JOptionPane.showMessageDialog(null, "Resultado: ");
+        try {
+            String mesStr = JOptionPane.showInputDialog("Informe o mes da despesa(1-12): ");
+            Integer mes = Integer.parseInt(mesStr);
+            String anoStr = JOptionPane.showInputDialog("Informe o ano da despesa: ");
+            Integer ano = Integer.parseInt(anoStr);
+            CalculoProporcional calculoProporcional = new CalculoProporcional();
+            calculoProporcional.calcular(mes, ano);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "O ano/mes inserido não é válido");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível achar uma despesa no intervalo de ano/mes dado");
+        }
+
     }
 }

@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Categoria extends CategoriaBase {
   private String subcategorias;
 
