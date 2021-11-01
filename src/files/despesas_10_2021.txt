@@ -1,4 +1,1 @@
-Energia outubro;CEB,Energia;150.0
-Condomínio outubro;Residência,Condomínio;300.0
-Comida outubro;Alimentação,;894.75
-Água outubro;CAESB,Água;300.32
+Net Outubro;Telecomunicações,Telefone;49,00

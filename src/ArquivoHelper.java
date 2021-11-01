@@ -13,9 +13,12 @@ public class ArquivoHelper {
         return Files.readAllLines(file.toPath());
     }
 
-    private static File getArquivosDeDespesasPath(Integer mes, Integer ano) {
+    private static File getArquivosDeDespesasPath(Integer mes, Integer ano) throws IOException {
         String arquivoDespesasPath = String.format("src/files/despesas_%d_%d.txt", mes, ano);
-        return new File(arquivoDespesasPath);
+        File file = new File(arquivoDespesasPath);
+        file.createNewFile();
+        
+        return file;
     }
 
     public static ArrayList<Despesa> lerDespesas(Integer mes, Integer ano) throws IOException {
@@ -40,7 +43,7 @@ public class ArquivoHelper {
             categoria.setSubcategorias(subcategorias);
             categoria.setDescricao(descricaoCategoria);
 
-            Despesa despesa = new Despesa(valor, descricaoDespesa, categoria);
+            Despesa despesa = new Despesa(valor, descricaoDespesa, categoria, subcategorias);
             despesas.add(despesa);
         }
 
@@ -146,12 +149,25 @@ public class ArquivoHelper {
         Files.write(alunosFile.toPath(), linhasDoArquivo.toString().getBytes());
     }
 
+    // MIGHT BE REFACTORED
+    public static boolean despesaExiste(String _despesa, Integer _mes, Integer _ano) throws IOException {
+        var linhasDoArquivo = lerLinhasDoArquivo(getArquivosDeDespesasPath(_mes, _ano));
+        for (var linha : linhasDoArquivo) {
+            var linhaSeparada = linha.split(";");
+
+            if (Objects.equals(linhaSeparada[0], _despesa)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void salvarDespesas(ArrayList<Despesa> despesas, Integer mes, Integer ano) throws IOException {
         StringBuilder linhasDoArquivo = new StringBuilder();
 
         for (var despesa : despesas) {
-            String subCategoria = "";
-            var subCategorias = despesa.getCategoria().getSubcategorias();
+            String subCategoria = despesa.getSubcategoria();
+            // var subCategorias = despesa.getCategoria().getSubcategorias();
 
             //if (subCategorias != null) {
             //    subCategoria = subCategorias.getDescricao();

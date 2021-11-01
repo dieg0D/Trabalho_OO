@@ -63,11 +63,51 @@ public class Republica {
         }
     }
 
-    public void cadastrarDespesas() {
-        String strValor = JOptionPane.showInputDialog("Informe o valor da Despesa: R$ ");
-        Double valor = Double.parseDouble(strValor);
-        String descricao = JOptionPane.showInputDialog("Informe a descrição da Despesa: ");
-        String categoria = JOptionPane.showInputDialog("Informe a categoria: ");
+    public void cadastrarDespesas() throws IOException{
+        Integer mes = Integer.parseInt(JOptionPane.showInputDialog("Informe o mês da Despesa: "));
+        Integer ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o ano da Despesa: "));
+        String descricao = Despesa.checarDescricaoValida(JOptionPane.showInputDialog("Informe a descrição da Despesa: "));
+        if (!ArquivoHelper.despesaExiste(descricao, mes, ano)) {
+            ArrayList<String> categoriasList = new ArrayList<String>();
+            for(var cat : categorias) {
+                categoriasList.add(cat.getDescricao());
+            }
+
+            String[] opcoesCategorias = new String[categoriasList.size()];
+            opcoesCategorias = categoriasList.toArray(opcoesCategorias);
+            String categoria = Despesa.checarCategoriaValida((String) JOptionPane.showInputDialog(null, "Selecione a Categoria", "Cadastro de Despesa", JOptionPane.QUESTION_MESSAGE, null, opcoesCategorias, ""));
+
+            String[] opcoesSubcategorias = null;
+            Categoria categoriaSelecionada = null;
+
+            for (var cat : categorias) {
+                if(cat.getDescricao().equals(categoria)) {
+                    opcoesSubcategorias = cat.getSubcategorias().split(",");
+                    categoriaSelecionada = cat;
+                }
+            }
+            String subcategoria = Despesa.checarCategoriaValida((String) JOptionPane.showInputDialog(null, "Selecione a Subcategoria", "Cadastro de Despesa", JOptionPane.QUESTION_MESSAGE, null, opcoesSubcategorias, ""));
+
+            String strValor = Despesa.checarValorValido(JOptionPane.showInputDialog("Informe o valor da Despesa: R$ "));
+            Double valor = Double.parseDouble(strValor);
+
+
+
+            Despesa novaDespesa = new Despesa(valor, descricao, categoriaSelecionada, subcategoria);
+            despesas.add(novaDespesa);
+
+            ArquivoHelper.salvarDespesas(despesas, mes, ano);
+        } else {
+            JOptionPane.showMessageDialog(null, "Essa despesa já está cadastrada");
+        }
+
+    }
+
+    public void editarDespesa() {
+
+    }
+
+    public void removerDespesa() {
 
     }
 
