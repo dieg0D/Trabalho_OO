@@ -1,1 +1,1 @@
-Net Outubro;Telecomunicações,Telefone;49,00
+Net Outubro;Telecomunicações,Telefone;49.00

@@ -21,6 +21,10 @@ public class ArquivoHelper {
         return file;
     }
 
+    private static String getDoubleAsString(Double value) {
+        return value.toString().replace(",", ".");
+    }
+
     public static ArrayList<Despesa> lerDespesas(Integer mes, Integer ano) throws IOException {
         ArrayList<Despesa> despesas = new ArrayList<>();
 
@@ -144,7 +148,7 @@ public class ArquivoHelper {
         StringBuilder linhasDoArquivo = new StringBuilder();
 
         for (var aluno : alunos) {
-            linhasDoArquivo.append(String.format("%s;%s;%.2f\n", aluno.getNome(), aluno.getEmail(), aluno.getRendimento()));
+            linhasDoArquivo.append(String.format("%s;%s;%s\n", aluno.getNome(), aluno.getEmail(), getDoubleAsString(aluno.getRendimento())));
         }
         Files.write(alunosFile.toPath(), linhasDoArquivo.toString().getBytes());
     }
@@ -172,8 +176,8 @@ public class ArquivoHelper {
             //if (subCategorias != null) {
             //    subCategoria = subCategorias.getDescricao();
             //}
-            linhasDoArquivo.append(String.format("%s;%s,%s;%.2f\n", despesa.getDescricao(),
-                    despesa.getCategoria().getDescricao(), subCategoria, despesa.getValor()));
+            linhasDoArquivo.append(String.format("%s;%s,%s;%s\n", despesa.getDescricao(),
+                    despesa.getCategoria().getDescricao(), subCategoria, getDoubleAsString(despesa.getValor())));
         }
 
         File arquivoDeDespesas = getArquivosDeDespesasPath(mes, ano);

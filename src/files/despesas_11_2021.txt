@@ -1,1 +1,1 @@
-Net Novembro;Telecomunicações,Internet;149,00
+Net Novembro;Telecomunicações,Internet;149.00
