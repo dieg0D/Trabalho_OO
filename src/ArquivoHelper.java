@@ -82,14 +82,22 @@ public class ArquivoHelper {
             double rendimento;
 
             if (Objects.equals(linhaSeparada[0], _aluno)) {
-                nome = Aluno.checarNomeEmBranco(JOptionPane.showInputDialog("Informe o nome do Aluno: "));
+                nome = Aluno.checarNomeEmBranco(JOptionPane.showInputDialog("Informe o novo nome do Aluno: "));
 
-                email = Aluno.checarEmailEmBranco(JOptionPane.showInputDialog("Informe o e-mail do Aluno: "));
+                if (ArquivoHelper.alunoExiste(nome) && !Objects.equals(nome, _aluno)) {
+                    JOptionPane.showMessageDialog(null, "Esse aluno já está cadastrado");
+                    nome = linhaSeparada[0];
+                    email = linhaSeparada[1];
+                    rendimento = Double.parseDouble(linhaSeparada[2]);
+                } else {
+                    email = Aluno.checarEmailEmBranco(JOptionPane.showInputDialog("Informe o novo e-mail do Aluno: "));
 
-                String strRendimento = Aluno.rendimentoInvalido(
-                        JOptionPane.showInputDialog("Informe o rendimento do Aluno: R$ ")
-                );
-                rendimento = Double.parseDouble(strRendimento);
+                    String strRendimento = Aluno.rendimentoInvalido(
+                            JOptionPane.showInputDialog("Informe o novo rendimento do Aluno: R$ ")
+                    );
+                    rendimento = Double.parseDouble(strRendimento);
+                }
+
             } else {
                 nome = linhaSeparada[0];
                 email = linhaSeparada[1];
@@ -111,18 +119,6 @@ public class ArquivoHelper {
             if (Objects.equals(linhaSeparada[0], _aluno)) {
                 return true;
             }
-        }
-        return false;
-    }
-
-    public static boolean alunoRepetido(String _aluno) throws IOException {
-        var linhasDoArquivo = lerLinhasDoArquivo(alunosFile);
-        int count = 0;
-        for (var linha : linhasDoArquivo) {
-            var linhaSeparada = linha.split(";");
-
-            if (Objects.equals(linhaSeparada[0], _aluno)) count++;
-            if (count == 2) return true;
         }
         return false;
     }
