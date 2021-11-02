@@ -1,2 +1,1 @@
-Comida;Tentaculo,polvo;29.90
-Net Outubro;Telecomunicações,Internet;149,00
+Net Novembro;Telecomunicações,Internet;149.00

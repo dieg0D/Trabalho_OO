@@ -1,0 +1,2 @@
+Macdonalds;Comida,Restaurante;345.55
+Churrasco;Comida,Restaurante;784.32

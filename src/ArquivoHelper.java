@@ -24,6 +24,10 @@ public class ArquivoHelper {
         return arquivoDespesasPath.toFile();
     }
 
+    private static String getDoubleAsString(Double value) {
+        return value.toString().replace(",", ".");
+    }
+
     public static ArrayList<Despesa> lerDespesas(Integer mes, Integer ano) throws IOException {
         ArrayList<Despesa> despesas = new ArrayList<>();
 
@@ -81,14 +85,22 @@ public class ArquivoHelper {
             double rendimento;
 
             if (Objects.equals(linhaSeparada[0], _aluno)) {
-                nome = Aluno.checarNomeEmBranco(JOptionPane.showInputDialog("Informe o nome do Aluno: "));
+                nome = Aluno.checarNomeEmBranco(JOptionPane.showInputDialog("Informe o novo nome do Aluno: "));
 
-                email = Aluno.checarEmailEmBranco(JOptionPane.showInputDialog("Informe o e-mail do Aluno: "));
+                if (ArquivoHelper.alunoExiste(nome) && !Objects.equals(nome, _aluno)) {
+                    JOptionPane.showMessageDialog(null, "Esse aluno já está cadastrado");
+                    nome = linhaSeparada[0];
+                    email = linhaSeparada[1];
+                    rendimento = Double.parseDouble(linhaSeparada[2]);
+                } else {
+                    email = Aluno.checarEmailEmBranco(JOptionPane.showInputDialog("Informe o novo e-mail do Aluno: "));
 
-                String strRendimento = Aluno.rendimentoInvalido(
-                        JOptionPane.showInputDialog("Informe o rendimento do Aluno: R$ ")
-                );
-                rendimento = Double.parseDouble(strRendimento);
+                    String strRendimento = Aluno.rendimentoInvalido(
+                            JOptionPane.showInputDialog("Informe o novo rendimento do Aluno: R$ ")
+                    );
+                    rendimento = Double.parseDouble(strRendimento);
+                }
+
             } else {
                 nome = linhaSeparada[0];
                 email = linhaSeparada[1];
@@ -114,18 +126,6 @@ public class ArquivoHelper {
         return false;
     }
 
-    public static boolean alunoRepetido(String _aluno) throws IOException {
-        var linhasDoArquivo = lerLinhasDoArquivo(alunosFile);
-        int count = 0;
-        for (var linha : linhasDoArquivo) {
-            var linhaSeparada = linha.split(";");
-
-            if (Objects.equals(linhaSeparada[0], _aluno)) count++;
-            if (count == 2) return true;
-        }
-        return false;
-    }
-
     public static ArrayList<Aluno> removerAluno(String _aluno) throws IOException {
         ArrayList<Aluno> alunos = new ArrayList<>();
         var linhasDoArquivo = lerLinhasDoArquivo(alunosFile);
@@ -147,7 +147,7 @@ public class ArquivoHelper {
         StringBuilder linhasDoArquivo = new StringBuilder();
 
         for (var aluno : alunos) {
-            linhasDoArquivo.append(String.format("%s;%s;%.2f\n", aluno.getNome(), aluno.getEmail(), aluno.getRendimento()));
+            linhasDoArquivo.append(String.format("%s;%s;%s\n", aluno.getNome(), aluno.getEmail(), getDoubleAsString(aluno.getRendimento())));
         }
         Files.write(alunosFile.toPath(), linhasDoArquivo.toString().getBytes());
     }
@@ -176,18 +176,18 @@ public class ArquivoHelper {
             //}
             if(despesa.getSubcategoria().isEmpty()){
                 linhasDoArquivo.append(String.format(
-                    "%s;%s;%.2f\n",
+                    "%s;%s;%s\n",
                     despesa.getDescricao(),
                     despesa.getCategoria().getDescricao(),
-                    despesa.getValor()
+                    getDoubleAsString(despesa.getValor())
                 ));
             } else {
                 linhasDoArquivo.append(String.format(
-                    "%s;%s,%s;%.2f\n",
+                    "%s;%s,%s;%s\n",
                     despesa.getDescricao(),
                     despesa.getCategoria().getDescricao(),
                     despesa.getSubcategoria(),
-                    despesa.getValor()
+                    getDoubleAsString(despesa.getValor())
                 ));
             }
         }

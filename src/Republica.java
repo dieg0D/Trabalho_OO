@@ -43,10 +43,6 @@ public class Republica {
         if (ArquivoHelper.alunoExiste(alunoEditar)) {
             alunos = ArquivoHelper.editarCadastroAluno(alunoEditar);
             ArquivoHelper.salvarAlunos(alunos);
-            if (ArquivoHelper.alunoRepetido(alunoEditar)) {
-                JOptionPane.showMessageDialog(null, "Esse aluno já está cadastrado");
-                ArquivoHelper.salvarAlunos(alunos_copy);
-            }
         } else {
             JOptionPane.showMessageDialog(null, "Esse aluno não existe");
         }
