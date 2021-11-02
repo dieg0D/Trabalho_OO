@@ -165,16 +165,75 @@ public class ArquivoHelper {
         return false;
     }
 
+    public static ArrayList<Despesa> editarCadastroDespesa(String _despesa, Integer _mes, Integer _ano, ArrayList<Categoria> categorias) throws IOException, DescricaoNaoInformadaException, CategoriaNaoInformadaException, ValorNaoInformadoException {
+        ArrayList<Despesa> despesas = new ArrayList<>();
+        var linhasDoArquivo = lerLinhasDoArquivo(getArquivosDeDespesasPath(_mes, _ano));
+        for (var linha : linhasDoArquivo) {
+            var linhaSeparada = linha.split(";");
+
+            String descricao = "";
+            Categoria categoria = new Categoria();
+            Double valor = 0.0;
+
+            if (Objects.equals(linhaSeparada[0], _despesa)) {
+                descricao = Despesa.checarDescricaoValida(JOptionPane.showInputDialog("Informe a nova descrição da despesa: "));
+
+                if (ArquivoHelper.despesaExiste(descricao, _mes, _ano) && !Objects.equals(descricao, _despesa)) {
+                    JOptionPane.showMessageDialog(null, "Essa despesa já está cadastrada");
+                    descricao = linhaSeparada[0];
+                    var categoriaSeparada = linhaSeparada[1].split(",");
+                    categoria.setDescricao(categoriaSeparada[0]);
+                    if(!categoriaSeparada[1].isEmpty()){
+                        categoria.setSubcategorias(categoriaSeparada[1]);
+                    }
+                    valor = Double.parseDouble(linhaSeparada[2]);
+                } else {
+                    ArrayList<String> categoriasList = new ArrayList<String>();
+                    for(var cat : categorias) {
+                        categoriasList.add(cat.getDescricao());
+                    }
+
+                    String[] opcoesCategorias = new String[categoriasList.size()];
+                    opcoesCategorias = categoriasList.toArray(opcoesCategorias);
+                    String categoriaNome = Despesa.checarCategoriaValida((String) JOptionPane.showInputDialog(null, "Selecione a nova Categoria", "Edição de Despesa", JOptionPane.QUESTION_MESSAGE, null, opcoesCategorias, ""));
+
+                    String[] opcoesSubcategorias = null;
+                    Categoria categoriaSelecionada = null;
+
+                    for (var cat : categorias) {
+                        if(cat.getDescricao().equals(categoriaNome)) {
+                            opcoesSubcategorias = cat.getSubcategorias().split(",");
+                            categoriaSelecionada = cat;
+                        }
+                    }
+
+                    String subcategoria = "";
+
+                    if(opcoesSubcategorias.length > 0 && !opcoesSubcategorias[0].equals("")) {
+                        subcategoria = (String) JOptionPane.showInputDialog(null, "Selecione a nova Subcategoria", "Edição de Despesa", JOptionPane.QUESTION_MESSAGE, null, opcoesSubcategorias, "");
+                    }
+
+                    String strValor = Despesa.checarValorValido(
+                            JOptionPane.showInputDialog("Informe o novo valor da despesa: R$ ")
+                    );
+                    valor = Double.parseDouble(strValor);
+                    
+                    Despesa despesa = new Despesa(valor, descricao, categoriaSelecionada, subcategoria);
+                    despesas.add(despesa);
+                }
+            }
+        }
+
+        despesas.removeIf(desp -> (desp.getDescricao().equals(_despesa)));
+
+        return despesas;
+    }
+
     public static void salvarDespesas(ArrayList<Despesa> despesas, Integer mes, Integer ano) throws IOException {
         StringBuilder linhasDoArquivo = new StringBuilder();
 
         for (var despesa : despesas) {
-            // var subCategorias = despesa.getCategoria().getSubcategorias();
-
-            //if (subCategorias != null) {
-            //    subCategoria = subCategorias.getDescricao();
-            //}
-            if(despesa.getSubcategoria().isEmpty()){
+            if(despesa.getCategoria().getSubcategorias().isEmpty()){
                 linhasDoArquivo.append(String.format(
                     "%s;%s;%s\n",
                     despesa.getDescricao(),
@@ -194,5 +253,27 @@ public class ArquivoHelper {
 
         File arquivoDeDespesas = getArquivosDeDespesasPath(mes, ano);
         Files.write(arquivoDeDespesas.toPath(), linhasDoArquivo.toString().getBytes(), StandardOpenOption.APPEND);
+    }
+
+    public static ArrayList<Despesa> removerDespesa(String _despesa, Integer _mes, Integer _ano) throws IOException {
+        ArrayList<Despesa> despesas = new ArrayList<>();
+        var linhasDoArquivo = lerLinhasDoArquivo(getArquivosDeDespesasPath(_mes, _ano));
+        for (var linha : linhasDoArquivo) {
+            var linhaSeparada = linha.split(";");
+
+            if (!Objects.equals(linhaSeparada[0], _despesa)) {
+                String descricao = linhaSeparada[0];
+                Categoria categoria = new Categoria();
+                var categoriaSeparada = linhaSeparada[1].split(",");
+                categoria.setDescricao(categoriaSeparada[0]);
+                if(categoriaSeparada.length > 1){
+                    categoria.setSubcategorias(categoriaSeparada[1]);
+                }
+                Double valor = Double.parseDouble(linhaSeparada[2]);
+                Despesa despesa = new Despesa(valor, descricao, categoria, categoria.getSubcategorias());
+                despesas.add(despesa);
+            }
+        }
+        return despesas;
     }
 }

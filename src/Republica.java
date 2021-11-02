@@ -59,7 +59,7 @@ public class Republica {
         }
     }
 
-    public void cadastrarDespesas() throws IOException{
+    public void cadastrarDespesas() throws IOException, DescricaoNaoInformadaException, ValorNaoInformadoException, CategoriaNaoInformadaException {
         Integer mes = Integer.parseInt(JOptionPane.showInputDialog("Informe o mês da Despesa: "));
         Integer ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o ano da Despesa: "));
         String descricao = Despesa.checarDescricaoValida(JOptionPane.showInputDialog("Informe a descrição da Despesa: "));
@@ -82,7 +82,12 @@ public class Republica {
                     categoriaSelecionada = cat;
                 }
             }
-            String subcategoria = (String) JOptionPane.showInputDialog(null, "Selecione a Subcategoria", "Cadastro de Despesa", JOptionPane.QUESTION_MESSAGE, null, opcoesSubcategorias, "");
+
+            String subcategoria = "";
+
+            if(opcoesSubcategorias.length > 0 && !opcoesSubcategorias[0].equals("")) {
+                subcategoria = (String) JOptionPane.showInputDialog(null, "Selecione a Subcategoria", "Cadastro de Despesa", JOptionPane.QUESTION_MESSAGE, null, opcoesSubcategorias, "");
+            }
 
             String strValor = Despesa.checarValorValido(JOptionPane.showInputDialog("Informe o valor da Despesa: R$ "));
             Double valor = Double.parseDouble(strValor);
@@ -99,12 +104,36 @@ public class Republica {
 
     }
 
-    public void editarDespesa() {
+    public void editarDespesa()  throws IOException, DescricaoNaoInformadaException, CategoriaNaoInformadaException, ValorNaoInformadoException {
+        Integer mes = Integer.parseInt(JOptionPane.showInputDialog("Informe o mês da Despesa a editar: "));
+        Integer ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o ano da Despesa a editar: "));
+        ArrayList<Despesa> despesas = ArquivoHelper.lerDespesas(mes, ano);
+
+        String despesaEditar = JOptionPane.showInputDialog("Informe a descrição da despesa que gostaria de editar: ");
+
+        if (ArquivoHelper.despesaExiste(despesaEditar, mes, ano)) {
+            despesas = ArquivoHelper.editarCadastroDespesa(despesaEditar, mes, ano, categorias);
+            ArquivoHelper.salvarDespesas(despesas, mes, ano);
+        } else {
+            JOptionPane.showMessageDialog(null, "Essa despesa não existe");
+        }
+
 
     }
 
-    public void removerDespesa() {
+    public void removerDespesa() throws IOException, DescricaoNaoInformadaException, CategoriaNaoInformadaException, ValorNaoInformadoException {
+        Integer mes = Integer.parseInt(JOptionPane.showInputDialog("Informe o mês da Despesa a ser removida: "));
+        Integer ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o ano da Despesa a ser removida: "));
+        String despesaRemover = JOptionPane.showInputDialog("Informe a descrição da despesa que gostaria de remover: ");
 
+        // ArquivoHelper.removerDespesa(despesaRemover, mes, ano);
+
+        if (ArquivoHelper.despesaExiste(despesaRemover, mes, ano)) {
+            despesas = ArquivoHelper.removerDespesa(despesaRemover, mes, ano);
+            ArquivoHelper.salvarDespesas(despesas, mes, ano);
+        } else {
+            JOptionPane.showMessageDialog(null, "Essa despesa não existe");
+        }
     }
 
     public void cadastrarCategoria() {

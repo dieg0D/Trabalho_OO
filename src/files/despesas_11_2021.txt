@@ -1,1 +1,5 @@
 Net Novembro;Telecomunicações,Internet;149.00
+Net Fone Novembro;Telecomunicações;48.87
+Água Novembro;Água;189.32
+Conta de Luz Novembro;Energia;243.75
+Net Virtua Novembro;Telecomunicações,Internet;172.58
