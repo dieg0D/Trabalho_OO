@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,11 +14,14 @@ public class ArquivoHelper {
     }
 
     private static File getArquivosDeDespesasPath(Integer mes, Integer ano) throws IOException {
-        String arquivoDespesasPath = String.format("src/files/despesas_%d_%d.txt", mes, ano);
-        File file = new File(arquivoDespesasPath);
-        file.createNewFile();
+        String arquivoDespesasName = String.format("src/files/despesas_%d_%d.txt", mes, ano);
+        Path arquivoDespesasPath = Paths.get(arquivoDespesasName);
+
+        if(!Files.exists(arquivoDespesasPath)){
+            arquivoDespesasPath = Files.createFile(arquivoDespesasPath);
+        }
         
-        return file;
+        return arquivoDespesasPath.toFile();
     }
 
     public static ArrayList<Despesa> lerDespesas(Integer mes, Integer ano) throws IOException {
@@ -166,17 +169,30 @@ public class ArquivoHelper {
         StringBuilder linhasDoArquivo = new StringBuilder();
 
         for (var despesa : despesas) {
-            String subCategoria = despesa.getSubcategoria();
             // var subCategorias = despesa.getCategoria().getSubcategorias();
 
             //if (subCategorias != null) {
             //    subCategoria = subCategorias.getDescricao();
             //}
-            linhasDoArquivo.append(String.format("%s;%s,%s;%.2f\n", despesa.getDescricao(),
-                    despesa.getCategoria().getDescricao(), subCategoria, despesa.getValor()));
+            if(despesa.getSubcategoria().isEmpty()){
+                linhasDoArquivo.append(String.format(
+                    "%s;%s;%.2f\n",
+                    despesa.getDescricao(),
+                    despesa.getCategoria().getDescricao(),
+                    despesa.getValor()
+                ));
+            } else {
+                linhasDoArquivo.append(String.format(
+                    "%s;%s,%s;%.2f\n",
+                    despesa.getDescricao(),
+                    despesa.getCategoria().getDescricao(),
+                    despesa.getSubcategoria(),
+                    despesa.getValor()
+                ));
+            }
         }
 
         File arquivoDeDespesas = getArquivosDeDespesasPath(mes, ano);
-        Files.write(arquivoDeDespesas.toPath(), linhasDoArquivo.toString().getBytes());
+        Files.write(arquivoDeDespesas.toPath(), linhasDoArquivo.toString().getBytes(), StandardOpenOption.APPEND);
     }
 }

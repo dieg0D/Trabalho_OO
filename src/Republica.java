@@ -86,7 +86,7 @@ public class Republica {
                     categoriaSelecionada = cat;
                 }
             }
-            String subcategoria = Despesa.checarCategoriaValida((String) JOptionPane.showInputDialog(null, "Selecione a Subcategoria", "Cadastro de Despesa", JOptionPane.QUESTION_MESSAGE, null, opcoesSubcategorias, ""));
+            String subcategoria = (String) JOptionPane.showInputDialog(null, "Selecione a Subcategoria", "Cadastro de Despesa", JOptionPane.QUESTION_MESSAGE, null, opcoesSubcategorias, "");
 
             String strValor = Despesa.checarValorValido(JOptionPane.showInputDialog("Informe o valor da Despesa: R$ "));
             Double valor = Double.parseDouble(strValor);
@@ -113,19 +113,31 @@ public class Republica {
 
     public void cadastrarCategoria() {
         String descricao = JOptionPane.showInputDialog("Informe a descrição da Categoria: ");
-        Categoria novaCategoria = new Categoria();
-        novaCategoria.setDescricao(descricao);
+        Boolean categoriaExiste = false;
 
-        categorias.add(novaCategoria);
-
-        String subcategoria = "";
-        String comSubcategoria = "";
-        while (!comSubcategoria.equals("s") && !comSubcategoria.equals("S") && !comSubcategoria.equals("n") && !comSubcategoria.equals("N")) {
-            comSubcategoria = JOptionPane.showInputDialog("Deseja atrelar subcategorias? (s/n)");
+        for(var cat : categorias) {
+            if(cat.getDescricao().equals(descricao)){
+                categoriaExiste = true;
+                break;
+            }
         }
-        if( comSubcategoria.equals("s") || comSubcategoria.equals("S") ) { subcategoria = JOptionPane.showInputDialog("Informe a subcategoria: "); }
-        novaCategoria.setSubcategorias(subcategoria);
-
+        
+        if(!categoriaExiste){
+            Categoria novaCategoria = new Categoria();
+            novaCategoria.setDescricao(descricao);
+            
+            categorias.add(novaCategoria);
+            
+            String subcategoria = "";
+            String comSubcategoria = "";
+            while (!comSubcategoria.equals("s") && !comSubcategoria.equals("S") && !comSubcategoria.equals("n") && !comSubcategoria.equals("N")) {
+                comSubcategoria = JOptionPane.showInputDialog("Deseja atrelar subcategorias? (s/n)");
+            }
+            if( comSubcategoria.equals("s") || comSubcategoria.equals("S") ) { subcategoria = JOptionPane.showInputDialog("Informe a subcategoria: "); }
+            novaCategoria.setSubcategorias(subcategoria);
+        } else {
+            JOptionPane.showMessageDialog(null, "Essa categoria já está cadastrada");
+        }
     }
 
     public void calcularDespesasIgualitarias() {
