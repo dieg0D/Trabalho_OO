@@ -1,0 +1,31 @@
+Criterios: 
+ * Crit. 1 - Os cadastros funcionam adequadamente?:  OK
+ * Crit. 2 - Excecoes sao lancadas adequadamente?:  OK
+ * Crit. 3 - Associações sao realizadas adequadamente?: OK
+ * Crit. 4 - Calculos estao corretos?:  OK
+
+Pontos positivos: 
+
+
+
+
+Pontos negativos: 
+
+
+
+
+
+Dúvidas: 
+
+
+
+
+
+Comentários: 
+ * Trabalho muito bem realizado, parabens a todos do grupo! Sucesso na jornada
+   de voces na FGA!
+
+
+
+Nota: 
+100/100 pontos.
